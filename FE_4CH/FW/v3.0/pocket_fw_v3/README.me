@@ -1,0 +1,37 @@
+# Linux Building Instructions
+
+## Install EX-USB FX3 SDK tool from Infenion at:
+
+https://softwaretools.infineon.com/tools/com.ifx.tb.tool.ezusbfx3sdk
+
+## To:
+mkdir -p /opt/cypress/fx3sdk
+
+tar -xf ezusbfx3sdk_1.3.5_Linux_x32-x64.tar.gz -C /opt/cypress/fx3sdk
+
+cd /opt/cypress/fx3sdk/
+
+tar -xf fx3_firmware_linux.tar.gz
+tar -xf ARM_GCC.tar.gz
+tar -xf cyusb_linux_1.0.5.tar.gz
+
+## build elf2img utility
+
+cd /opt/cypress/fx3sdk/cyfx3sdk/util/elf2img/
+gcc elf2img.c -o elf2img -Wall -O3
+
+
+## Clone repo
+
+cd
+git clone -b double_ws https://github.com/s59mz/PocketSDR-AFS
+cd PocketSDR-AFS
+
+
+## Compile project:
+
+cd FE_4CH/FW/v3.0/pocket_fw_v3
+
+make -f makefile.linux clean
+make -f makefile.linux all
+
