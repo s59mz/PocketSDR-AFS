@@ -100,3 +100,5 @@ x509.genkey
 *-backups
 ./*fp-info-cache
 *.bak
+pocket_fw_v3.map
+
