@@ -7,6 +7,8 @@
 #! $ sudo apt install libfftw3-dev   (Ubuntu)
 #! $ brew install libfftw            (Mac OS)
 
+USE_AVX2 ?= 1
+
 SRC = ../../src
 
 ifeq ($(OS),Windows_NT)
@@ -27,9 +29,13 @@ else
     CC = g++
     INSTALL = ../linux
     INCLUDE = -I$(SRC) -I../RTKLIB/src
-    OPTIONS = -DAVX2 -mavx2 -mfma
+    OPTIONS =
     LDLIBS = ./librtk.a ./libfec.a ./libldpc.a -lfftw3f -lpthread -lusb-1.0 -lm \
              -lpthread
+
+    ifeq ($(USE_AVX2),1)
+        OPTIONS += -DAVX2 -mavx2 -mfma
+    endif
 endif
 ifeq ($(shell uname -m),aarch64)
     OPTIONS = -DNEON
